@@ -7,6 +7,7 @@
         <th>Name</th>
         <th>Salary</th>
         <th>Deparmtent</th>
+        <th>Action</th>
     </tr>
     @foreach(var em in Model)
             {
@@ -15,6 +16,10 @@
                     <td>@em.Name</td>
                     <td>@em.Salary</td>
                     <td>@em.Dept</td>
+                    <td>
+                        <a asp-controller="Employee" asp-action="Edit" asp-route-id="@em.Id" class="btn btn-info" ><i class="fa fa-edit"></i></a> 
+                        <a asp-controller="Employee" asp-action="Delete" asp-route-id="@em.Id" class="btn btn-danger" onclick="return confirm('Are you sure to delete this employee ?')"><i class="fa fa-trash"></i></a>
+                    </td>
                 </tr>
             }
 </table>

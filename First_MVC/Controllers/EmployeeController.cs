@@ -35,9 +35,19 @@ namespace First_MVC.Controllers
             Employee.AddEmployee(employee);
             return RedirectToAction("Index");
         }
-        //public IActionResult home()
-        //{
-        //    return View();
-        //}
+       
+        public IActionResult Delete(int id)
+        {
+            var r = Employee.DeleteEmployee(id);
+           if (r)
+            {
+                ViewBag.message = "record deleted successfully";
+            }
+            else
+            {
+                ViewBag.message = "record not deleted ";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

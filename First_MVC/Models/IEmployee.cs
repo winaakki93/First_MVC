@@ -9,5 +9,6 @@ namespace First_MVC.Models
     {
         Employee AddEmployee(Employee employee);
         List<Employee> GetEmployees();
+        bool DeleteEmployee(int id);
     }
 }

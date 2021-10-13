@@ -7,27 +7,40 @@ namespace First_MVC.Models
 {
     public class EmployeeService : IEmployee
     {
-        private List<Employee> Employees;
-        public EmployeeService()
-        {
-            this.Employees = new List<Employee>()
-            {
-    new Employee(){Id=1,Name="ajay",Salary=12000,Dept="IT"},
-    new Employee(){Id=2,Name="Rohit",Salary=17000,Dept="IT"},
-    new Employee(){Id=3,Name="ajay",Salary=19000,Dept="HR"},
+        private ApplicationContext Context { get; }
 
-            };
+        public EmployeeService(ApplicationContext context)
+        {
+            Context = context;
         }
+
+       
+
         public Employee AddEmployee(Employee employee)
         {
-            employee.Id = Employees.Count + 1;
-            Employees.Add(employee);
+           
+            Context.Employees.Add(employee);
+            Context.SaveChanges();
             return employee;
         }
 
         public List<Employee> GetEmployees()
         {
-            return Employees.ToList();
+            return Context.Employees.ToList();
+        }
+        public bool DeleteEmployee(int id)
+        {
+            if (Context.Employees.Any(e => e.Id == id))
+            {
+                var emp = Context.Employees.SingleOrDefault(e => e.Id == id);
+                Context.Employees.Remove(emp);
+                Context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
